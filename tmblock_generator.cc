@@ -10,17 +10,18 @@ class TMBlockGenerator : public Halide::Generator<TMBlockGenerator> {
 
     Output<Buffer<uint8_t>> output{"output", 3};
 
+    Func logo_ext{"logo_ext"};
+
     Var x, y, ch;
 
     void generate() {
-        Expr alpha = logo(x, y, 4);
+        logo_ext = BoundaryConditions::constant_exterior(logo, 0);
+        Expr alpha = logo_ext(x, y, 4);
         output(x, y, ch) = input(x, y, ch) / (1 - alpha) -
-                           logo(x, y, ch) * alpha / (1 - alpha);
+                           logo_ext(x, y, ch) * alpha / (1 - alpha);
     }
 
-    void schedule() {
-        output.compute_root();
-    }
+    void schedule() { output.compute_root(); }
 };
 
 HALIDE_REGISTER_GENERATOR(TMBlockGenerator, tmblock)
