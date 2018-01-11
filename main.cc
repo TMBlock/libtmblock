@@ -16,7 +16,9 @@ int main(int argc, char** argv) {
     Halide::Runtime::Buffer<uint8_t> input = Halide::Tools::load_image(argv[1]),
                                      logo = Halide::Tools::load_image(argv[2]);
     Halide::Runtime::Buffer<uint8_t> output(
-        input.dim(0).extent(), input.dim(1).extent(), input.dim(2).extent());
+        input.dim(0).max() - input.dim(0).min(),
+        input.dim(1).max() - input.dim(1).min(),
+        input.dim(2).max() - input.dim(2).min());
 
     tmblock(input, logo, output);
 
