@@ -22,23 +22,7 @@ int main(int argc, char** argv) {
 
     tmblock(input, logo, output);
 
-    for (int i = 0; i < input.dimensions(); i++) {
-        auto dim = input.dim(i);
-        std::cout << i << ' ' << dim.min() << ' ' << dim.max() << ' '
-                  << dim.stride() << ' ' << dim.extent() << std::endl;
-    }
-
-    for (int i = 0; i < output.dimensions(); i++) {
-        auto dim = output.dim(i);
-        std::cout << i << ' ' << dim.min() << ' ' << dim.max() << ' '
-                  << dim.stride() << ' ' << dim.extent() << std::endl;
-    }
-
-    for (int i = 0; i < logo.dimensions(); i++) {
-        auto dim = logo.dim(i);
-        std::cout << i << ' ' << dim.min() << ' ' << dim.max() << ' '
-                  << dim.stride() << ' ' << dim.extent() << std::endl;
-    }
+    Halide::Tools::save_image(output, argv[3]);
 
     return 0;
 }
