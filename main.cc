@@ -16,14 +16,20 @@ int main(int argc, char** argv) {
     Halide::Runtime::Buffer<uint8_t> input = Halide::Tools::load_image(argv[1]),
                                      logo = Halide::Tools::load_image(argv[2]);
     Halide::Runtime::Buffer<uint8_t> output(
-        input.dim(0).max() - input.dim(0).min(),
-        input.dim(1).max() - input.dim(1).min(),
-        input.dim(2).max() - input.dim(2).min());
+        input.dim(0).max() - input.dim(0).min() + 1,
+        input.dim(1).max() - input.dim(1).min() + 1,
+        input.dim(2).max() - input.dim(2).min() + 1);
 
     tmblock(input, logo, output);
 
     for (int i = 0; i < input.dimensions(); i++) {
         auto dim = input.dim(i);
+        std::cout << i << ' ' << dim.min() << ' ' << dim.max() << ' '
+                  << dim.stride() << ' ' << dim.extent() << std::endl;
+    }
+
+    for (int i = 0; i < output.dimensions(); i++) {
+        auto dim = output.dim(i);
         std::cout << i << ' ' << dim.min() << ' ' << dim.max() << ' '
                   << dim.stride() << ' ' << dim.extent() << std::endl;
     }

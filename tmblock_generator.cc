@@ -5,8 +5,8 @@ using namespace Halide;
 
 class TMBlockGenerator : public Halide::Generator<TMBlockGenerator> {
    public:
-    Input<Buffer<uint8_t>> logo{"logo", 3};
     Input<Buffer<uint8_t>> input{"input", 3};
+    Input<Buffer<uint8_t>> logo{"logo", 3};
 
     Output<Buffer<uint8_t>> output{"output", 3};
 
