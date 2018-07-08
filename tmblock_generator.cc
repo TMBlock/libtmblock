@@ -16,12 +16,17 @@ class TMBlockGenerator : public Halide::Generator<TMBlockGenerator> {
 
     void generate() {
         input_f(x, y, ch) = cast<float>(input(x, y, ch));
-        logo_ext = BoundaryConditions::constant_exterior(logo, 0);
+        logo_ext = BoundaryConditions::constant_exterior(
+            logo, 0, logo.dim(0).min(), logo.dim(0).max(), logo.dim(1).min(),
+            logo.dim(1).max());
         logo_f(x, y, ch) = cast<float>(logo_ext(x, y, ch));
-        Expr alpha = logo_f(x, y, 4) / 255;
-        output(x, y, ch) =
-            cast<uint8_t>(input_f(x, y, ch) / (1 - alpha) -
-                          logo_f(x, y, ch) * alpha / (1 - alpha));
+        Expr alpha = logo_f(x, y, 3) / 255;
+        output(x, y, ch) = cast<uint8_t>(
+            select(alpha == 1,
+                   clamp(input_f(x, y, ch) / (1 - alpha) -
+                             logo_f(x, y, ch) * alpha / (1 - alpha),
+                         0, 255),
+                   input_f));
     }
 
     void schedule() { output.compute_root(); }
