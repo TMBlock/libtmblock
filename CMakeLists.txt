@@ -16,6 +16,7 @@ find_package(Threads REQUIRED)
 
 halide_library(tmblock_pre SRCS pre_tmblock_generator.cc)
 halide_library(tmblock_post SRCS post_tmblock_generator.cc)
+halide_library(watermark SRCS watermark_generator.cc)
 
 include_directories(${HALIDE_DISTRIB_DIR}/include ${HALIDE_DISTRIB_DIR}/tools)
 
@@ -24,3 +25,6 @@ target_link_libraries(pre PUBLIC tmblock_pre ${PNG_LIBRARIES} ${JPEG_LIBRARIES} 
 
 add_executable(post post.cc)
 target_link_libraries(post PUBLIC tmblock_post ${PNG_LIBRARIES} ${JPEG_LIBRARIES} Threads::Threads)
+
+add_executable(water water.cc)
+target_link_libraries(water PUBLIC watermark ${PNG_LIBRARIES} ${JPEG_LIBRARIES} Threads::Threads)
