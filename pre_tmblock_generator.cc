@@ -3,7 +3,7 @@
 
 using namespace Halide;
 
-class TMBlockGenerator : public Halide::Generator<TMBlockGenerator> {
+class PreTMBlockGenerator : public Halide::Generator<PreTMBlockGenerator> {
    public:
     Input<Buffer<uint8_t>> input{"input", 3};
     Input<Buffer<uint8_t>> logo{"logo", 3};
@@ -22,14 +22,14 @@ class TMBlockGenerator : public Halide::Generator<TMBlockGenerator> {
         logo_f(x, y, ch) = cast<float>(logo_ext(x, y, ch));
         Expr alpha = logo_f(x, y, 3) / 255;
         output(x, y, ch) = cast<uint8_t>(
-            select(alpha == 1,
+            select(alpha != 1,
                    clamp(input_f(x, y, ch) / (1 - alpha) -
                              logo_f(x, y, ch) * alpha / (1 - alpha),
                          0, 255),
-                   input_f));
+                   input_f(x, y, ch)));
     }
 
     void schedule() { output.compute_root(); }
 };
 
-HALIDE_REGISTER_GENERATOR(TMBlockGenerator, tmblock)
+HALIDE_REGISTER_GENERATOR(PreTMBlockGenerator, tmblock_pre)

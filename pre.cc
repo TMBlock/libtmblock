@@ -4,7 +4,7 @@
 #include <cstring>
 #include "HalideBuffer.h"
 #include "halide_image_io.h"
-#include "tmblock.h"
+#include "tmblock_pre.h"
 
 int main(int argc, char** argv) {
     if (argc != 4) {
@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
         input.dim(1).max() - input.dim(1).min() + 1,
         input.dim(2).max() - input.dim(2).min() + 1);
 
-    tmblock(input, logo, output);
+    tmblock_pre(input, logo, output);
 
     Halide::Tools::save_image(output, argv[3]);
 

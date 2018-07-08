@@ -14,9 +14,13 @@ find_package(PNG REQUIRED)
 find_package(JPEG REQUIRED)
 find_package(Threads REQUIRED)
 
-halide_library(tmblock SRCS tmblock_generator.cc)
+halide_library(tmblock_pre SRCS pre_tmblock_generator.cc)
+halide_library(tmblock_post SRCS post_tmblock_generator.cc)
 
 include_directories(${HALIDE_DISTRIB_DIR}/include ${HALIDE_DISTRIB_DIR}/tools)
 
-add_executable(main main.cc)
-target_link_libraries(main PUBLIC tmblock ${PNG_LIBRARIES} ${JPEG_LIBRARIES} Threads::Threads)
+add_executable(pre pre.cc)
+target_link_libraries(pre PUBLIC tmblock_pre ${PNG_LIBRARIES} ${JPEG_LIBRARIES} Threads::Threads)
+
+add_executable(post post.cc)
+target_link_libraries(post PUBLIC tmblock_post ${PNG_LIBRARIES} ${JPEG_LIBRARIES} Threads::Threads)
