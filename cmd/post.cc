@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
         input.dim(1).max() - input.dim(1).min() + 1,
         input.dim(2).max() - input.dim(2).min() + 1);
 
-    tmblock_post(input, logo, output);
+    tmblock_post(input, logo, 0, 0, output);
 
     Halide::Tools::save_image(output, argv[3]);
 
