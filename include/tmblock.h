@@ -1,7 +1,7 @@
 #ifndef TMBLOCK_H
 #define TMBLOCK_H
 
-#ifdef __cpluplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -27,7 +27,7 @@ bool TM_pre(TM_Picture *input, TM_Picture *logo, size_t offset_x,
 bool TM_embed(TM_Picture *input, TM_Picture *logo, size_t offset_x,
               size_t offset_y, TM_Picture *output);
 
-#ifdef __cpluplus
+#ifdef __cplusplus
 }
 #endif
 
