@@ -1,18 +1,23 @@
-
 ## Build
+
+1. Download and extract [Halide 2017/10/30](https://github.com/halide/Halide/releases/tag/release_2017_10_30) or [Halide 2018/02/15](https://github.com/halide/Halide/releases/tag/release_2018_02_15).
+2. Run following instructions.
 
 ```bash
 mkdir build/
 cd bulid/
-wget https://github.com/halide/Halide/releases/download/release_2017_10_30/halide-mac-64-trunk-3af238615667312dcb46607752e3ae5d0ec5d713.tgz
-tar zxvf halide-mac-*.tgz
-cmake ../ -DHALIDE_DISTRIB_DIR=$PWD/halide
+cmake -DHALIDE_DISTRIB_DIR=path/to/halide ..
 make
 ```
 
-if anything goes wrong, try adding the following line to the head of `CMakeLists.txt`:
+## FAQ
+
+### Failed to build on MacOS
+
+This is [known issue](https://github.com/halide/Halide/issues/2821) of halide.
+
+To work around, add following option when running `cmake`:
 
 ```
-set(HALIDE_DISTRIB_USE_STATIC_LIBRARY TRUE)
+-DHALIDE_DISTRIB_USE_STATIC_LIBRARY=TRUE
 ```
-
