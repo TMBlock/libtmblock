@@ -1,7 +1,6 @@
 #include "tmblock_generator-impl.h"
 
-class WatermarkCore {
-   public:
+struct WatermarkCore {
     static inline Expr calc(Expr input, Expr logo, Expr alpha) {
         return input * (1 - alpha) + logo * alpha;
     }
