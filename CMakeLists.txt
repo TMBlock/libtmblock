@@ -1,8 +1,10 @@
 cmake_minimum_required (VERSION 3.11.4)
-project (TMBlock)
+project (tmblock)
 
 set (CMAKE_CXX_STANDARD 11)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+include_directories(include)
 
 if (NOT DEFINED HALIDE_DISTRIB_DIR)
     message(FATAL_ERROR "HALIDE_DISTRIB_DIR is not set")
@@ -28,3 +30,6 @@ target_link_libraries(post PUBLIC tmblock_post ${PNG_LIBRARIES} ${JPEG_LIBRARIES
 
 add_executable(water cmd/water.cc)
 target_link_libraries(water PUBLIC tmblock_embed ${PNG_LIBRARIES} ${JPEG_LIBRARIES} Threads::Threads)
+
+add_library(${CMAKE_PROJECT_NAME} SHARED src/wrapper.cc)
+target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC tmblock_pre tmblock_post tmblock_embed)
