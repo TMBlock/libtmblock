@@ -6,4 +6,4 @@ struct WatermarkCore {
     }
 };
 
-HALIDE_REGISTER_GENERATOR(TMBlockGenerator<WatermarkCore>, watermark)
+HALIDE_REGISTER_GENERATOR(TMBlockGenerator<WatermarkCore>, tmblock_embed)
