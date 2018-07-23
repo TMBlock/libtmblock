@@ -10,6 +10,10 @@ cmake -DHALIDE_DISTRIB_DIR=path/to/halide ..
 make
 ```
 
+## TODO
+
+* [ ] parallelize
+
 ## FAQ
 
 ### Failed to build on MacOS
