@@ -1,5 +1,6 @@
 #pragma once
 #include "Halide.h"
+#include "tmlayout.h"
 
 using namespace Halide;
 
@@ -10,6 +11,14 @@ class TMBlockGenerator : public Halide::Generator<TMBlockGenerator<Core>> {
     GeneratorInput<Buffer<uint8_t>> input{"input", 3}, logo{"logo", 3};
     GeneratorInput<int> offset_x{"offset_x"}, offset_y{"offset_y"};
     GeneratorOutput<Buffer<uint8_t>> output{"output", 3};
+
+    GeneratorParam<TM_Layout> layout{"layout",
+        // default value
+        TM_PLANAR,
+        // map from names to values
+        {{ "planar",   TM_PLANAR },
+         { "packed",   TM_PACKED }}};
+
 
     Func logo_ext{"logo_ext"}, input_f{"input_f"}, logo_f{"logo_f"};
 
@@ -28,18 +37,21 @@ class TMBlockGenerator : public Halide::Generator<TMBlockGenerator<Core>> {
     }
 
     void schedule() {
-        // XXX(huiyiqun) Assume packed (or interleaved) layout here.
-        // Should support more layout with a GeneratorParam.
-        // See: http://halide-lang.org/tutorials/tutorial_lesson_16_rgb_generate.html
-        input
-            .dim(0).set_stride(3)
-            .dim(2).set_stride(1);
-        logo
-            .dim(0).set_stride(4)
-            .dim(2).set_stride(1);
-        output
-            .dim(0).set_stride(3)
-            .dim(2).set_stride(1);
+        if (layout == TM_PLANAR) {
+            input.dim(0).set_stride(1);
+            logo.dim(0).set_stride(1);
+            output.dim(0).set_stride(1);
+        } else if (layout == TM_PACKED) {
+            input
+                .dim(0).set_stride(3)
+                .dim(2).set_stride(1);
+            logo
+                .dim(0).set_stride(4)
+                .dim(2).set_stride(1);
+            output
+                .dim(0).set_stride(3)
+                .dim(2).set_stride(1);
+        }
 
         output.compute_root();
     }
