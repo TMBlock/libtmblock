@@ -27,5 +27,20 @@ class TMBlockGenerator : public Halide::Generator<TMBlockGenerator<Core>> {
         output(x, y, ch) = cast<uint8_t>(clamp(result, 0, 255));
     }
 
-    void schedule() { output.compute_root(); }
+    void schedule() {
+        // XXX(huiyiqun) Assume packed (or interleaved) layout here.
+        // Should support more layout with a GeneratorParam.
+        // See: http://halide-lang.org/tutorials/tutorial_lesson_16_rgb_generate.html
+        input
+            .dim(0).set_stride(3)
+            .dim(2).set_stride(1);
+        logo
+            .dim(0).set_stride(4)
+            .dim(2).set_stride(1);
+        output
+            .dim(0).set_stride(3)
+            .dim(2).set_stride(1);
+
+        output.compute_root();
+    }
 };

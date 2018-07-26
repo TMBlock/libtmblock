@@ -8,9 +8,10 @@ static inline Halide::Runtime::Buffer<uint8_t> TM_Picture_to_Buffer(
     TM_Picture *pic) {
     int channels = pic->mode == TM_RGB ? 3 : 4;
     halide_dimension_t dimensions[] = {
-        {0, pic->width, 1},
+        {0, pic->width, channels},
         {0, pic->height, pic->linesize},
-        {0, channels, pic->width * pic->linesize}};
+        {0, channels, 1},
+    };
     Halide::Runtime::Buffer<uint8_t> ret(pic->ptr, 3, dimensions);
     return ret;
 }
