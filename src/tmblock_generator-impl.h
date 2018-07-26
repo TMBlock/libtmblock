@@ -8,7 +8,7 @@ class TMBlockGenerator : public Halide::Generator<TMBlockGenerator<Core>> {
    public:
     // XXX: why Input and Output is not working here?
     GeneratorInput<Buffer<uint8_t>> input{"input", 3}, logo{"logo", 3};
-    GeneratorInput<uint8_t> offset_x{"offset_x"}, offset_y{"offset_y"};
+    GeneratorInput<int> offset_x{"offset_x"}, offset_y{"offset_y"};
     GeneratorOutput<Buffer<uint8_t>> output{"output", 3};
 
     Func logo_ext{"logo_ext"}, input_f{"input_f"}, logo_f{"logo_f"};

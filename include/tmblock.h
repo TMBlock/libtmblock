@@ -20,12 +20,12 @@ typedef struct {
     TM_PictureMode mode;
 } TM_Picture;
 
-bool TM_post(TM_Picture *input, TM_Picture *logo, size_t offset_x,
-             size_t offset_y, TM_Picture *output);
-bool TM_pre(TM_Picture *input, TM_Picture *logo, size_t offset_x,
-            size_t offset_y, TM_Picture *output);
-bool TM_embed(TM_Picture *input, TM_Picture *logo, size_t offset_x,
-              size_t offset_y, TM_Picture *output);
+bool TM_post(TM_Picture *input, TM_Picture *logo, int offset_x,
+             int offset_y, TM_Picture *output);
+bool TM_pre(TM_Picture *input, TM_Picture *logo, int offset_x,
+            int offset_y, TM_Picture *output);
+bool TM_embed(TM_Picture *input, TM_Picture *logo, int offset_x,
+              int offset_y, TM_Picture *output);
 
 #ifdef __cplusplus
 }

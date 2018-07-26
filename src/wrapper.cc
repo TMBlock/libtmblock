@@ -24,8 +24,8 @@ static inline void validate_variables(TM_Picture *input, TM_Picture *logo,
     assert(input->height == output->height);
 }
 
-bool TM_post(TM_Picture *input, TM_Picture *logo, size_t offset_x,
-             size_t offset_y, TM_Picture *output) {
+bool TM_post(TM_Picture *input, TM_Picture *logo, int offset_x,
+             int offset_y, TM_Picture *output) {
     validate_variables(input, logo, output);
     auto input_buffer = TM_Picture_to_Buffer(input),
          logo_buffer = TM_Picture_to_Buffer(logo),
@@ -34,8 +34,8 @@ bool TM_post(TM_Picture *input, TM_Picture *logo, size_t offset_x,
                         output_buffer);
 }
 
-bool TM_pre(TM_Picture *input, TM_Picture *logo, size_t offset_x,
-            size_t offset_y, TM_Picture *output) {
+bool TM_pre(TM_Picture *input, TM_Picture *logo, int offset_x,
+            int offset_y, TM_Picture *output) {
     validate_variables(input, logo, output);
     auto input_buffer = TM_Picture_to_Buffer(input),
          logo_buffer = TM_Picture_to_Buffer(logo),
@@ -44,8 +44,8 @@ bool TM_pre(TM_Picture *input, TM_Picture *logo, size_t offset_x,
                        output_buffer);
 }
 
-bool TM_embed(TM_Picture *input, TM_Picture *logo, size_t offset_x,
-                  size_t offset_y, TM_Picture *output) {
+bool TM_embed(TM_Picture *input, TM_Picture *logo, int offset_x,
+                  int offset_y, TM_Picture *output) {
     validate_variables(input, logo, output);
     auto input_buffer = TM_Picture_to_Buffer(input),
          logo_buffer = TM_Picture_to_Buffer(logo),
