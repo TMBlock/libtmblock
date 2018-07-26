@@ -26,9 +26,6 @@ int TM_pre(TM_Picture *input, TM_Picture *logo, int offset_x,
 int TM_embed(TM_Picture *input, TM_Picture *logo, int offset_x,
              int offset_y, TM_Picture *output, TM_Layout layout);
 
-typedef int TM_Function(TM_Picture *input, TM_Picture *logo, int offset_x,
-             int offset_y, TM_Picture *output, TM_Layout layout);
-
 #ifdef __cplusplus
 }
 #endif
