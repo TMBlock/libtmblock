@@ -5,7 +5,6 @@
 extern "C" {
 #endif
 
-#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 
@@ -20,12 +19,12 @@ typedef struct {
     TM_PictureMode mode;
 } TM_Picture;
 
-bool TM_post(TM_Picture *input, TM_Picture *logo, int offset_x,
-             int offset_y, TM_Picture *output);
-bool TM_pre(TM_Picture *input, TM_Picture *logo, int offset_x,
+int TM_post(TM_Picture *input, TM_Picture *logo, int offset_x,
             int offset_y, TM_Picture *output);
-bool TM_embed(TM_Picture *input, TM_Picture *logo, int offset_x,
-              int offset_y, TM_Picture *output);
+int TM_pre(TM_Picture *input, TM_Picture *logo, int offset_x,
+           int offset_y, TM_Picture *output);
+int TM_embed(TM_Picture *input, TM_Picture *logo, int offset_x,
+             int offset_y, TM_Picture *output);
 
 #ifdef __cplusplus
 }
