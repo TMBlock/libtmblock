@@ -6,7 +6,7 @@
 
 static inline Halide::Runtime::Buffer<uint8_t> TM_Picture_to_Buffer(
     TM_Picture *pic) {
-    int channels = pic->mode == TM_PictureMode::RGB ? 3 : 4;
+    int channels = pic->mode == TM_RGB ? 3 : 4;
     halide_dimension_t dimensions[] = {
         {0, pic->width, 1},
         {0, pic->height, pic->linesize},
@@ -17,9 +17,9 @@ static inline Halide::Runtime::Buffer<uint8_t> TM_Picture_to_Buffer(
 
 static inline void validate_variables(TM_Picture *input, TM_Picture *logo,
                                       TM_Picture *output) {
-    assert(input->mode == TM_PictureMode::RGB);
-    assert(output->mode == TM_PictureMode::RGB);
-    assert(logo->mode == TM_PictureMode::RGBA);
+    assert(input->mode == TM_RGB);
+    assert(output->mode == TM_RGB);
+    assert(logo->mode == TM_RGBA);
     assert(input->width == output->width);
     assert(input->height == output->height);
 }

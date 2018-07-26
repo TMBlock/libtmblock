@@ -10,8 +10,8 @@ extern "C" {
 #include <stdint.h>
 
 typedef enum {
-    RGB,
-    RGBA,
+    TM_RGB,
+    TM_RGBA,
 } TM_PictureMode;
 
 typedef struct {
