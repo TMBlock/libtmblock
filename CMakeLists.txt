@@ -63,3 +63,6 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
     tmblock_pre_planar tmblock_pre_packed
     tmblock_post_planar tmblock_post_packed
     tmblock_embed_planar tmblock_embed_packed)
+
+install(TARGETS ${CMAKE_PROJECT_NAME} DESTINATION lib)
+install(FILES include/tmblock.h include/tmlayout.h DESTINATION include)
